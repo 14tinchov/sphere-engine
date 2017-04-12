@@ -6,7 +6,7 @@ module SphereEngine
       include SphereEngine::REST::Utils
 
       def all_compilers(options = {} )
-        perform_get('/compilers', options)
+        perform_get_requests_of_problems_service('/compilers', options)
       end
     end
   end

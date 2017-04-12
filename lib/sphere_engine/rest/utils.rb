@@ -4,12 +4,16 @@ module SphereEngine
   module REST
     module Utils
     private
-      def perform_get(path, options = {})
-        perform_request(:get, path, options)
+      def perform_get_requests_of_problems_service(path, options = {})
+        perform_request(:get, :problems, path, options)
       end
 
-      def perform_request(request_method, path, options = {})
-        SphereEngine::REST::Request.new(self, request_method, path, options).perform
+      def perform_get_requests_of_compílers_service(path, options = {})
+        perform_request(:get, :compilers, path, options)
+      end
+
+      def perform_request(request_method, service, path, options = {})
+        SphereEngine::REST::Request.new(self, request_method, service, path, options).perform
       end
     end
   end

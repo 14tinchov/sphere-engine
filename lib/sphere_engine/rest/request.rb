@@ -4,17 +4,19 @@ require 'http'
 module SphereEngine
   module REST
     class Request
-      BASE_URL = 'https://09de42b6.problems.sphere-engine.com/api/v3'.freeze
-      attr_accessor :client, :headers, :options, :path, :request_method, :uri
+      BASE_URL_COMPILERS_SERVICE = 'https://09de42b6.compilers.sphere-engine.com/api/V3/'.freeze
+      BASE_URL_PROBLEMS_SERVICE  = 'https://09de42b6.problems.sphere-engine.com/api/v3'.freeze
+      attr_accessor :client, :headers, :options, :service, :path, :request_method, :uri
 
       # @param client [SphereEngine::Client]
       # @param request_method [String, Symbol]
       # @param path [String]
       # @param options [Hash]
       # @return [SphereEngine::REST::Request]
-      def initialize(client, request_method, path, options = {})
+      def initialize(client, request_method, service, path, options = {})
         @client = client
-        @uri = Addressable::URI.parse(path.start_with?('http') ? path : BASE_URL + path)
+        @service = service
+        @uri = Addressable::URI.parse(path.start_with?('http') ? path : build_base_url + path)
         @path = uri.path
         @options = options
       end
@@ -43,6 +45,14 @@ module SphereEngine
           end
         end
         object
+      end
+
+      def build_base_url
+        if service == :compilers
+          return BASE_URL_COMPILERS_SERVICE
+        else
+          return BASE_URL_PROBLEMS_SERVICE
+        end
       end
     end
   end
