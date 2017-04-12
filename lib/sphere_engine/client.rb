@@ -1,6 +1,6 @@
 module SphereEngine
   class Client
-    attr_accessor :access_token
+    attr_accessor :access_token_compilers, :access_token_problems
 
     # Initializes a new Client object
     #
@@ -16,7 +16,8 @@ module SphereEngine
     # @return [Hash]
     def credentials
       {
-        token: access_token
+        access_token_compilers: access_token_compilers,
+        access_token_problems: access_token_problems
       }
     end
 

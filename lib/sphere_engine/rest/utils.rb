@@ -1,4 +1,4 @@
-require 'twitter/rest/request'
+require 'sphere_engine/rest/request'
 
 module SphereEngine
   module REST
@@ -9,7 +9,7 @@ module SphereEngine
       end
 
       def perform_request(request_method, path, options = {})
-        Twitter::REST::Request.new(self, request_method, path, options).perform
+        SphereEngine::REST::Request.new(self, request_method, path, options).perform
       end
     end
   end
