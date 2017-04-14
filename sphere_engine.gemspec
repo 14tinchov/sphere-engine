@@ -15,8 +15,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Martin Villalba"]
   spec.email         = ["14tinchov@gmail.com"]
 
-  spec.description   = %q{A Ruby interface to the SphereEngine API.}
-  spec.summary       = spec.description
+  spec.summary       = %q{A Ruby interface to the SphereEngine API.}
+  spec.description   = spec.summary
   spec.homepage      = "https://github.com/14tinchov/sphere-engine.git"
   spec.license       = "MIT"
 
