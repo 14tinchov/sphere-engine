@@ -25,5 +25,15 @@ module SphereEngine
     def credentials?
       credentials.values.all?
     end
+
+    # @return[String]
+    def get_token(service)
+      return case service
+      when :compillers
+        access_token_compilers
+      when :problems
+        access_token_problems
+      end
+    end
   end
 end

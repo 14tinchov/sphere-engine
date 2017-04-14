@@ -15,6 +15,7 @@ module SphereEngine
       # @return [SphereEngine::REST::Request]
       def initialize(client, request_method, service, path, options = {})
         @client = client
+        @token  = client.get_token(service)
         @service = service
         @uri = Addressable::URI.parse(path.start_with?('http') ? path : build_base_url + path)
         @path = uri.path
@@ -23,7 +24,7 @@ module SphereEngine
 
       # @return [Array, Hash]
       def perform
-        response = HTTP.get(uri, :params => {:access_token => "37fcd1a005858e2d20112a21116a56f9"})
+        response = HTTP.get(uri, :params => {:access_token => @token})
         response_body = response.body.empty? ? '' : symbolize_keys!(response.parse)
         fail_or_return_response_body(response.code, response_body)
       end
@@ -48,10 +49,11 @@ module SphereEngine
       end
 
       def build_base_url
-        if service == :compilers
-          return BASE_URL_COMPILERS_SERVICE
-        else
-          return BASE_URL_PROBLEMS_SERVICE
+        return case @service
+        when :compillers
+          BASE_URL_COMPILERS_SERVICE
+        when :problems
+          BASE_URL_PROBLEMS_SERVICE
         end
       end
     end
