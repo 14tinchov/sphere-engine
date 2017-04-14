@@ -30,9 +30,16 @@ module SphereEngine
       end
 
       def fail_or_return_response_body(code, body)
-        # error = error(code, body, headers)
-        # raise(error) if error
+        error = error(code, body)
+        raise(error) if error
         body
+      end
+
+      def error(code, body)
+        klass = SphereEngine::Error::ERRORS[code]
+        if klass
+          klass.from_response(body)
+        end
       end
 
       def symbolize_keys!(object)

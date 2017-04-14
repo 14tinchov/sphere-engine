@@ -5,8 +5,8 @@ module SphereEngine
     module Access
       include SphereEngine::REST::Utils
 
-      def all_compilers(options = {} )
-        perform_get_requests_of_problems_service('/compilers', options)
+      def test_method
+        perform_get_requests_of_problems_service('/test')
       end
     end
   end

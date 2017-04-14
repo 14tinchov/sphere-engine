@@ -1,3 +1,5 @@
+require 'sphere_engine/error'
+
 module SphereEngine
   class Client
     attr_accessor :access_token_compilers, :access_token_problems
