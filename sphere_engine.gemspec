@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["14tinchov@gmail.com"]
 
   spec.summary       = %q{A Ruby interface to the SphereEngine API.}
-  spec.description   = spec.summary
+  spec.description   = %q{This gem was made as an interface to the SphereEngine API. I try to abstract in the best way all his methods that SphereEngine give us}
   spec.homepage      = "https://github.com/14tinchov/sphere-engine.git"
   spec.license       = "MIT"
 

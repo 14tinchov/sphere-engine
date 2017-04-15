@@ -1,6 +1,15 @@
 # SphereEngine
 
-I'm working right now!
+A Ruby interface to SphereEngine API. This gem was made as an interface to the SphereEngine API. It abstract in the best way all his methods that SphereEngine give us. This gem separates the requests into two types (compilers and problems), according to the SphereEngine documentation. For more information about SphereEngine visit this [Link](http://sphere-engine.com)
+
+## Prerequisites
+
+You need the following tokens:
+
+* Token for Compilers API
+* Token for problems API
+
+[SphereEngine Tokens](http://sphere-engine.com/tokens)
 
 ## Installation
 
@@ -18,9 +27,48 @@ Or install it yourself as:
 
     $ gem install sphere_engine
 
-## Usage
+## Configuration
 
-TODO: Write usage instructions here
+SphereEngine provide two services, one for compilers and another for problems. To start using a SpherEengine client do the following:
+
+```ruby
+client = SphereEngine::REST::Client.new do |config|
+  config.access_token_compilers = "YOUR_ACCESS_TOKEN_COMPILERS"
+  config.access_token_problems  = "YOUR_ACCESS_TOKEN_PROBLEMS"
+end
+```
+
+## Usage Examples
+After configuring a client, you can do the following things:
+
+### Get compilers
+```ruby
+client.all_compilers
+```
+
+### Get languages
+```ruby
+client.all_languages
+```
+
+
+### Create a submission (Compilers service)
+
+This method return a submission_id
+```ruby
+client.create_submission_compiler(
+    language: 11, #LanguageID
+    sourceCode: "#include int main(){ printf(\"Hello!\"); return 0; }" #Code
+)
+```
+
+### Fetch a submission (Compilers service)
+```ruby
+client.fetch_submission_compilers(submission_id)
+```
+
+### Problems service
+Coming soon
 
 ## Development
 

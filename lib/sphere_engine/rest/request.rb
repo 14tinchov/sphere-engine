@@ -1,10 +1,11 @@
 require 'addressable/uri'
 require 'http'
+require 'json'
 
 module SphereEngine
   module REST
     class Request
-      BASE_URL_COMPILERS_SERVICE = 'https://09de42b6.compilers.sphere-engine.com/api/V3/'.freeze
+      BASE_URL_COMPILERS_SERVICE = 'https://09de42b6.compilers.sphere-engine.com/api/V3'.freeze
       BASE_URL_PROBLEMS_SERVICE  = 'https://09de42b6.problems.sphere-engine.com/api/v3'.freeze
       attr_accessor :client, :headers, :options, :service, :path, :request_method, :uri
 
@@ -17,6 +18,7 @@ module SphereEngine
         @client = client
         @token  = client.get_token(service)
         @service = service
+        @request_method = request_method
         @uri = Addressable::URI.parse(path.start_with?('http') ? path : build_base_url + path)
         @path = uri.path
         @options = options
@@ -24,8 +26,8 @@ module SphereEngine
 
       # @return [Array, Hash]
       def perform
-        response = HTTP.get(uri, :params => {:access_token => @token})
-        response_body = response.body.empty? ? '' : symbolize_keys!(response.parse)
+        response = build_http_request
+        response_body = response.body.empty? ? '' : JSON.parse(response.to_s)
         fail_or_return_response_body(response.code, response_body)
       end
 
@@ -42,26 +44,28 @@ module SphereEngine
         end
       end
 
-      def symbolize_keys!(object)
-        if object.is_a?(Array)
-          object.each_with_index do |val, index|
-            object[index] = symbolize_keys!(val)
-          end
-        elsif object.is_a?(Hash)
-          object.keys.each do |key|
-            object[key.to_sym] = symbolize_keys!(object.delete(key))
-          end
-        end
-        object
-      end
-
       def build_base_url
         return case @service
-        when :compillers
+        when :compilers
           BASE_URL_COMPILERS_SERVICE
         when :problems
           BASE_URL_PROBLEMS_SERVICE
         end
+      end
+
+      def build_http_request
+        return case @request_method
+        when :get
+          HTTP.get(uri, params: build_request_params)
+        when :post
+          HTTP.post(uri, params: build_request_params)
+        end
+      end
+
+      def build_request_params
+        {
+          access_token: @token
+        }.merge(options)
       end
     end
   end

@@ -31,7 +31,7 @@ module SphereEngine
     # @return[String]
     def get_token(service)
       return case service
-      when :compillers
+      when :compilers
         access_token_compilers
       when :problems
         access_token_problems
