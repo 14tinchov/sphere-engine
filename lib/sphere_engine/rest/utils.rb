@@ -20,6 +20,10 @@ module SphereEngine
         perform_request(:post, :compilers, path, options)
       end
 
+      def perform_put_requests_of_problems_service(path, options = {})
+        perform_request(:put, :problems, path, options)
+      end
+
       def perform_request(request_method, service, path, options = {})
         SphereEngine::REST::Request.new(self, request_method, service, path, options).perform
       end

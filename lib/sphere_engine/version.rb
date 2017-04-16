@@ -1,5 +1,5 @@
 module SphereEngine
   unless defined?(SphereEngine::VERSION)
-    VERSION = "1.2.0.pre".freeze
+    VERSION = "1.3.0.pre".freeze
   end
 end

@@ -43,19 +43,8 @@ module SphereEngine
       def parse_error(body)
         if body.nil? || body.empty?
           ['', nil]
-        elsif body[:message]
-          [body[:message], nil]
-        elsif body[:errors]
-          extract_message_from_errors(body)
-        end
-      end
-
-      def extract_message_from_errors(body)
-        first = Array(body[:errors]).first
-        if first.is_a?(Hash)
-          [first[:message].chomp, first[:code]]
-        else
-          [first.chomp, nil]
+        elsif  body["message"] || body[:message]
+          [ body["message"] || body[:message], nil]
         end
       end
     end

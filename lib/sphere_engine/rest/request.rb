@@ -27,8 +27,16 @@ module SphereEngine
       # @return [Array, Hash]
       def perform
         response = build_http_request
-        response_body = response.body.empty? ? '' : JSON.parse(response.to_s)
+        response_body = response.body.empty? ? '' : format_to_response(response)
         fail_or_return_response_body(response.code, response_body)
+      end
+
+      def format_to_response(response)
+        begin
+          JSON.parse(response.to_s)
+        rescue JSON::ParserError
+          response.to_s
+        end
       end
 
       def fail_or_return_response_body(code, body)
@@ -59,6 +67,8 @@ module SphereEngine
           HTTP.get(uri, params: build_request_params)
         when :post
           HTTP.post(uri, params: build_request_params)
+        when :put
+          HTTP.put(uri, params: build_request_params)
         end
       end
 
