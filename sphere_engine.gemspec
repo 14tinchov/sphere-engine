@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A Ruby interface to the SphereEngine API.}
   spec.description   = %q{This gem was made as an interface to the SphereEngine API. I try to abstract in the best way all his methods that SphereEngine give us.}
-  spec.homepage      = "https://github.com/14tinchov/sphere-engine.git"
+  spec.homepage      = "https://github.com/14tinchov/sphere-engine"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
