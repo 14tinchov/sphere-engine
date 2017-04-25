@@ -83,6 +83,19 @@ client.create_problem(
 )
 ```
 
+#### Fetch a problem
+```ruby
+client.get_problem(problem_id)
+```
+
+#### Update a problem
+
+```ruby
+client.update_problem("PROBLEM_ID", name: "NEW_NAME")
+```
+
+*Other params: type [string], interactive [boolean], masterjudgeId [integer], activeTestcases [array]*
+
 #### Create testcase to problem
 
 ```ruby
@@ -94,13 +107,17 @@ client.create_problem_testcase(
 )
 ```
 
-#### Update a problem
+#### Update a testcase
 
 ```ruby
-client.update_problem("PROBLEM_ID", name: "NEW_NAME")
+client.update_problem_testcase(
+  "PROBLEM_ID",
+  "TESTCASE_ID",
+  name: "NEW_NAME"
+  input: "new input content",
+  output: "new output content"
+)
 ```
-
-*Other params: type [string], interactive [boolean], masterjudgeId [integer], activeTestcases [array]*
 
 #### Get a list testcases of a problem
 

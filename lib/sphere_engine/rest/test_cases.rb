@@ -16,6 +16,13 @@ module SphereEngine
 
       # @param problem_id  [String]
       # @param testcase_id [String]
+      # @param options [Hash]
+      def update_problem_testcase(problem_id, testcase_id, options = {})
+        perform_put_requests_of_problems_service("/problems/#{problem_id}/testcases/#{testcase_id}", options)
+      end
+
+      # @param problem_id  [String]
+      # @param testcase_id [String]
       def get_testcase(problem_id, testcase_id)
         perform_get_requests_of_problems_service("/problems/#{problem_id}/testcases/#{testcase_id}")
       end
